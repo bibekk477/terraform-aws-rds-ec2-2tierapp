@@ -42,6 +42,7 @@ day22/
 ├── variables.tf                     # Root variables
 ├── outputs.tf                       # Root outputs
 ├── terraform.tfvars.example         # Example variable values
+├── provider.tf                      # Provider config
 ├── README.md                        # This file
 └── modules/
     ├── vpc/                         # VPC Module
@@ -100,6 +101,7 @@ terraform output application_url
 ```
 
 The Flask application has three endpoints:
+
 - `/` - Home page
 - `/health` - Database connectivity health check
 - `/db-info` - Database information
@@ -129,18 +131,24 @@ db_password = "YourSecurePassword123!"  # Use a strong password!
 ## Modules
 
 ### VPC Module
+
 Creates the network infrastructure including VPC, subnets, internet gateway, and route tables.
 
 ### Security Groups Module
+
 Creates security groups for:
+
 - **Web Server**: Allows HTTP (80) and SSH (22) from anywhere
 - **Database**: Allows MySQL (3306) only from the web server security group
 
 ### RDS Module
+
 Deploys a MySQL RDS instance in private subnets with a DB subnet group.
 
 ### EC2 Module
+
 Deploys an Ubuntu EC2 instance with:
+
 - Flask web application
 - MySQL client for database connectivity
 - Systemd service for application management
@@ -162,12 +170,12 @@ Deploys an Ubuntu EC2 instance with:
 
 ## Outputs
 
-| Output | Description |
-|--------|-------------|
-| `vpc_id` | ID of the created VPC |
-| `web_server_public_ip` | Public IP of the EC2 instance |
-| `web_server_public_dns` | Public DNS of the EC2 instance |
-| `application_url` | URL to access the Flask application |
-| `rds_endpoint` | RDS instance endpoint |
-| `rds_port` | RDS instance port |
-| `database_name` | Name of the database |
+| Output                  | Description                         |
+| ----------------------- | ----------------------------------- |
+| `vpc_id`                | ID of the created VPC               |
+| `web_server_public_ip`  | Public IP of the EC2 instance       |
+| `web_server_public_dns` | Public DNS of the EC2 instance      |
+| `application_url`       | URL to access the Flask application |
+| `rds_endpoint`          | RDS instance endpoint               |
+| `rds_port`              | RDS instance port                   |
+| `database_name`         | Name of the database                |
